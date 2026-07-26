@@ -93,9 +93,13 @@ export default function MobileDrawer({ isOpen, onClose }) {
 
         {/* User */}
         <div className="flex items-center gap-2.5 px-4 py-4 border-b border-[#2A2A3D]">
-          <div className="w-8 h-8 rounded-full bg-[#6C63FF] flex items-center justify-center flex-shrink-0">
-            <span className="text-white text-xs font-semibold">JD</span>
-          </div>
+          <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0">
+  <img
+    src="/images/11e3ce5ce32b02a2bb8cf2c25f7959e3c04a0e78.jpg"
+    alt="John Doe"
+    className="w-full h-full object-cover"
+  />
+</div>
           <div>
             <p className="text-white text-sm font-medium">John Doe</p>
             <p className="text-[#A0A0B0] text-xs">Admin</p>

@@ -46,9 +46,13 @@ export default function Sidebar({ collapsed = false }) {
     >
       {/* Logo */}
       <div className="flex items-center gap-2.5 px-4 py-5 border-b border-gray-200">
-        <div className="w-8 h-8 bg-[#6C63FF] rounded-lg flex items-center justify-center flex-shrink-0">
-          <ShipNowIcon />
-        </div>
+        <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0">
+  <img
+    src="/images/11e3ce5ce32b02a2bb8cf2c25f7959e3c04a0e78.jpg"
+    alt="John Doe"
+    className="w-full h-full object-cover"
+  />
+</div>
         {!collapsed && (
           <span className="font-bold text-base tracking-widest text-gray-900">SHIPNOW</span>
         )}
