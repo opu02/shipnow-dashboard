@@ -1,0 +1,209 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #6C63FF;
+  --color-primary-50: #F0EFFF;
+  --color-primary-100: #E0DEFF;
+  --color-primary-500: #6C63FF;
+  --color-primary-600: #4B40FF;
+  --color-primary-700: #2A1FFF;
+
+  --color-sidebar-bg: #13131A;
+  --color-sidebar-text: #A0A0B0;
+  --color-sidebar-hover: #1E1E2D;
+  --color-sidebar-border: #2A2A3D;
+
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-danger: #EF4444;
+  --color-info: #3B82F6;
+
+  --font-sans: 'Inter', sans-serif;
+
+  --shadow-card: 0 1px 3px 0 rgba(0,0,0,0.08), 0 1px 2px 0 rgba(0,0,0,0.04);
+  --shadow-dropdown: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -1px rgba(0,0,0,0.06);
+
+  --breakpoint-sm: 375px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1440px;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: 'Inter', sans-serif;
+  }
+
+  body {
+    background-color: #F8F9FA;
+    color: #212529;
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #F1F3F5;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #CED4DA;
+    border-radius: 9999px;
+  }
+}
+
+@layer components {
+  .card {
+    background: white;
+    border-radius: 0.75rem;
+    box-shadow: var(--shadow-card);
+    padding: 1rem;
+  }
+
+  .badge-transit {
+    background: #EDE9FE;
+    color: #6C63FF;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.125rem 0.625rem;
+    border-radius: 9999px;
+  }
+
+  .badge-delivered {
+    background: #D1FAE5;
+    color: #065F46;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.125rem 0.625rem;
+    border-radius: 9999px;
+  }
+
+  .badge-processing {
+    background: #FEF3C7;
+    color: #92400E;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.125rem 0.625rem;
+    border-radius: 9999px;
+  }
+
+  .badge-outfordelivery {
+    background: #DBEAFE;
+    color: #1E40AF;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.125rem 0.625rem;
+    border-radius: 9999px;
+  }
+
+  .badge-pending {
+    background: #F3F4F6;
+    color: #6B7280;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.125rem 0.625rem;
+    border-radius: 9999px;
+  }
+
+  .input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #DEE2E6;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    outline: none;
+    transition: all 0.15s;
+  }
+
+  .input:focus {
+    border-color: #6C63FF;
+    box-shadow: 0 0 0 2px rgba(108, 99, 255, 0.2);
+  }
+
+  .input-error {
+    border-color: #EF4444 !important;
+  }
+
+  .input-error:focus {
+    box-shadow: 0 0 0 2px rgba(239, 68, 68, 0.2) !important;
+  }
+
+  .btn-primary {
+    background: #6C63FF;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .btn-primary:hover {
+    background: #4B40FF;
+  }
+
+  .btn-secondary {
+    background: white;
+    color: #495057;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: 1px solid #DEE2E6;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .btn-secondary:hover {
+    background: #F8F9FA;
+  }
+
+  .sidebar-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.625rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #A0A0B0;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-decoration: none;
+  }
+
+  .sidebar-link:hover {
+    background: #1E1E2D;
+    color: white;
+  }
+
+  .sidebar-link-active {
+    background: #6C63FF !important;
+    color: white !important;
+  }
+
+  .table-th {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #6C757D;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .table-td {
+    padding: 0.75rem 1rem;
+    font-size: 0.875rem;
+    color: #495057;
+  }
+}
