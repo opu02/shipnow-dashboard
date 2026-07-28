@@ -45,32 +45,32 @@ export default function Sidebar({ collapsed = false }) {
       style={{ width: collapsed ? '64px' : '220px', transition: 'width 0.2s' }}
     >
       {/* Logo */}
-      <div className="flex items-center gap-2.5 px-4 py-5 border-b border-gray-200">
-        <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0">
-  <img
-    src="/images/11e3ce5ce32b02a2bb8cf2c25f7959e3c04a0e78.jpg"
-    alt="John Doe"
-    className="w-full h-full object-cover"
-  />
+<div className="flex items-center gap-2.5 px-4 py-5 border-b border-gray-200">
+  <div className="w-8 h-8 bg-[#6C63FF] rounded-lg flex items-center justify-center flex-shrink-0">
+    <ShipNowIcon />
+  </div>
+  {!collapsed && (
+    <span className="font-bold text-base tracking-widest text-gray-900">SHIPNOW</span>
+  )}
 </div>
-        {!collapsed && (
-          <span className="font-bold text-base tracking-widest text-gray-900">SHIPNOW</span>
-        )}
-      </div>
 
       {/* User */}
-      {!collapsed && (
-        <div className="flex items-center gap-2.5 px-4 py-4 border-b border-gray-200">
-          <div className="w-8 h-8 rounded-full bg-[#6C63FF] flex items-center justify-center flex-shrink-0">
-            <span className="text-white text-xs font-semibold">JD</span>
-          </div>
-          <div className="flex-1 min-w-0">
-            <p className="text-gray-800 text-sm font-medium truncate">John Doe</p>
-            <p className="text-gray-500 text-xs truncate">Admin</p>
-          </div>
-          <ChevronDown size={14} className="text-gray-400 flex-shrink-0" />
-        </div>
-      )}
+{!collapsed && (
+  <div className="flex items-center gap-2.5 px-4 py-4 border-b border-gray-200">
+    <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0">
+      <img
+        src="/images/11e3ce5ce32b02a2bb8cf2c25f7959e3c04a0e78.jpg"
+        alt="John Doe"
+        className="w-full h-full object-cover"
+      />
+    </div>
+    <div className="flex-1 min-w-0">
+      <p className="text-gray-800 text-sm font-medium truncate">John Doe</p>
+      <p className="text-gray-500 text-xs truncate">Admin</p>
+    </div>
+    <ChevronDown size={14} className="text-gray-400 flex-shrink-0" />
+  </div>
+)}
 
       {/* Nav Items */}
       <nav className="flex-1 px-2 py-4 space-y-0.5">

@@ -1,4 +1,4 @@
- 'use client';
+'use client';
 
 import { useEffect } from 'react';
 import Link from 'next/link';
@@ -40,12 +40,10 @@ function ShipNowIcon() {
 export default function MobileDrawer({ isOpen, onClose }) {
   const pathname = usePathname();
 
-  // Close drawer on route change
   useEffect(() => {
     onClose();
   }, [pathname]);
 
-  // Prevent body scroll when open
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
@@ -94,12 +92,12 @@ export default function MobileDrawer({ isOpen, onClose }) {
         {/* User */}
         <div className="flex items-center gap-2.5 px-4 py-4 border-b border-[#2A2A3D]">
           <div className="w-8 h-8 rounded-full overflow-hidden flex-shrink-0">
-  <img
-    src="/images/11e3ce5ce32b02a2bb8cf2c25f7959e3c04a0e78.jpg"
-    alt="John Doe"
-    className="w-full h-full object-cover"
-  />
-</div>
+            <img
+              src="/images/11e3ce5ce32b02a2bb8cf2c25f7959e3c04a0e78.jpg"
+              alt="John Doe"
+              className="w-full h-full object-cover"
+            />
+          </div>
           <div>
             <p className="text-white text-sm font-medium">John Doe</p>
             <p className="text-[#A0A0B0] text-xs">Admin</p>
