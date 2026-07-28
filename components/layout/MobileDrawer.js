@@ -30,9 +30,8 @@ const bottomItems = [
 function ShipNowIcon() {
   return (
     <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-      <rect x="0" y="0" width="10" height="10" rx="2" fill="white" />
-      <rect x="12" y="0" width="7" height="7" rx="1.5" fill="white" opacity="0.7" />
-      <rect x="0" y="12" width="7" height="7" rx="1.5" fill="white" opacity="0.7" />
+      <path d="M4 18L9 4H13L8 18H4Z" fill="white" />
+      <path d="M12 18L17 4H21L16 18H12Z" fill="white" opacity="0.7" />
     </svg>
   );
 }

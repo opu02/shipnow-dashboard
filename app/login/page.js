@@ -4,12 +4,11 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Eye, EyeOff } from 'lucide-react';
 
-function ShipNowIcon({ color = 'white' }) {
+function ShipNowIcon() {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-      <rect x="0" y="0" width="10" height="10" rx="2" fill={color} />
-      <rect x="12" y="0" width="7" height="7" rx="1.5" fill={color} opacity="0.7" />
-      <rect x="0" y="12" width="7" height="7" rx="1.5" fill={color} opacity="0.7" />
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <path d="M2 20L8 4H14L8 20H2Z" fill="#333333" />
+      <path d="M12 20L18 4H24L18 20H12Z" fill="#000000" opacity="0.2" />
     </svg>
   );
 }
@@ -58,56 +57,55 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
 
-      {/* ===== LEFT / TOP — Purple Section ===== */}
-<div className="w-full md:w-1/2 bg-[#7B6EF6] relative overflow-hidden
-                flex flex-col items-center justify-between
-                px-8 pt-10 pb-12
-                md:min-h-screen">
+      {/* LEFT / TOP — Purple Section */}
+      <div className="w-full md:w-1/2 bg-[#7B6EF6] relative overflow-hidden
+                      flex flex-col items-center justify-between
+                      px-8 pt-10 pb-12 md:min-h-screen">
 
-  {/* Logo — center top */}
-  <div className="flex items-center gap-2">
-    <ShipNowIcon color="white" />
-    <span className="text-white font-bold text-xl tracking-widest">SHIPNOW</span>
-  </div>
+        {/* Logo */}
+        <div className="flex items-center gap-2">
+          <ShipNowIcon />
+          <span className="text-white font-bold text-xl tracking-widest">SHIPNOW</span>
+        </div>
 
-  {/* Images — center middle */}
-  <div className="relative" style={{ width: '300px', height: '240px' }}>
-    {/* Big image — landscape (truck) */}
-    <div className="absolute left-0 top-10 rounded-2xl overflow-hidden shadow-2xl"
-         style={{ width: '210px', height: '170px' }}>
-      <img
-        src="/3941f220471fc3b6f1bd491da42aa4f95e83d2de.jpg"
-        alt="Delivery truck"
-        className="w-full h-full object-cover"
-      />
-    </div>
-    {/* Small image — portrait (girl with phone) */}
-    <div className="absolute rounded-2xl overflow-hidden shadow-2xl z-10"
-         style={{ width: '130px', height: '160px', left: '160px', top: '0px' }}>
-      <img
-        src="/fd494962a6c866f2b2bfb19d5fbc3aae6c10e9b1.jpg"
-        alt="Person with phone"
-        className="w-full h-full object-cover"
-      />
-    </div>
-  </div>
+        {/* Images */}
+       <div className="relative" style={{ width: '320px', height: '320px' }}>
+          {/* Big image — truck */}
+          <div className="absolute left-0 top-10 rounded-2xl overflow-hidden shadow-2xl"
+               style={{ width: '230px', height: '190px' }}>
+            <img
+              src="/3941f220471fc3b6f1bd491da42aa4f95e83d2de.jpg"
+              alt="Delivery truck"
+              className="w-full h-full object-cover"
+            />
+          </div>
+          {/* Small image — girl with phone */}
+          <div className="absolute rounded-2xl overflow-hidden shadow-2xl z-10"
+               style={{ width: '145px', height: '175px', left: '170px', top: '0px' }}>
+            <img
+              src="/fd494962a6c866f2b2bfb19d5fbc3aae6c10e9b1.jpg"
+              alt="Person with phone"
+              className="w-full h-full object-cover"
+            />
+          </div>
+        </div>
 
-  {/* Bottom text — center */}
-  <div className="text-center">
-    <h2 className="text-3xl font-bold text-white mb-3">
-      Welcome to ShipNow
-    </h2>
-    <p className="text-white/80 text-sm leading-relaxed">
-      Manage your shipments, fleet, and warehouse in one smart dashboard.
-    </p>
-  </div>
+        {/* Bottom text */}
+        <div className="text-center">
+          <h2 className="text-3xl font-bold text-white mb-3">
+            Welcome to ShipNow
+          </h2>
+          <p className="text-white/80 text-sm leading-relaxed">
+            Manage your shipments, fleet, and warehouse in one smart dashboard.
+          </p>
+        </div>
 
-  {/* Decorative circles */}
-  <div className="absolute -bottom-16 -left-16 w-64 h-64 rounded-full bg-white/5 pointer-events-none" />
-  <div className="absolute -top-16 -right-16 w-48 h-48 rounded-full bg-white/5 pointer-events-none" />
-</div>
+        {/* Decorative circles */}
+        <div className="absolute -bottom-16 -left-16 w-64 h-64 rounded-full bg-white/5 pointer-events-none" />
+        <div className="absolute -top-16 -right-16 w-48 h-48 rounded-full bg-white/5 pointer-events-none" />
+      </div>
 
-      {/* ===== RIGHT / BOTTOM — Form Section ===== */}
+      {/* RIGHT / BOTTOM — Form Section */}
       <div className="w-full md:w-1/2 bg-white flex items-center justify-center
                       px-8 py-12 md:py-0 md:min-h-screen">
         <div className="w-full max-w-sm">
@@ -115,7 +113,7 @@ export default function LoginPage() {
           {/* Logo icon */}
           <div className="flex justify-center mb-6">
             <div className="w-10 h-10 bg-[#7B6EF6] rounded-xl flex items-center justify-center">
-              <ShipNowIcon color="white" />
+              <ShipNowIcon />
             </div>
           </div>
 
