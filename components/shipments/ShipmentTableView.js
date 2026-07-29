@@ -1,8 +1,9 @@
- 'use client';
+'use client';
 
 import { useState } from 'react';
 import { Search, Filter, Calendar, ArrowUpDown, ChevronLeft, ChevronRight } from 'lucide-react';
 import StatusBadge from './StatusBadge';
+import EmptyState from '@/components/ui/EmptyState';
 
 const TABS = ['All', 'Completed', 'Delivery', 'Pending'];
 const PAGE_SIZES = [12, 24, 48];
@@ -16,20 +17,17 @@ export default function ShipmentTableView({ shipments }) {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(12);
 
-  // Filter by tab
   const tabFiltered = shipments.filter((s) => {
     if (activeTab === 'All') return true;
     return s.status === activeTab;
   });
 
-  // Filter by search
   const searched = tabFiltered.filter((s) =>
     s.id.toLowerCase().includes(search.toLowerCase()) ||
     s.company.toLowerCase().includes(search.toLowerCase()) ||
     s.category.toLowerCase().includes(search.toLowerCase())
   );
 
-  // Sort
   const sorted = [...searched].sort((a, b) => {
     if (!sortField) return 0;
     const aVal = a[sortField] || '';
@@ -39,7 +37,6 @@ export default function ShipmentTableView({ shipments }) {
       : bVal.toString().localeCompare(aVal.toString());
   });
 
-  // Pagination
   const total = sorted.length;
   const totalPages = Math.ceil(total / pageSize);
   const paginated = sorted.slice((page - 1) * pageSize, page * pageSize);
@@ -79,7 +76,6 @@ export default function ShipmentTableView({ shipments }) {
     <div className="card">
       {/* Toolbar */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-4">
-        {/* Tabs */}
         <div className="flex items-center gap-1 bg-gray-100 rounded-lg p-1">
           {TABS.map((tab) => (
             <button
@@ -96,7 +92,6 @@ export default function ShipmentTableView({ shipments }) {
           ))}
         </div>
 
-        {/* Search + Filter + Date */}
         <div className="flex items-center gap-2 flex-wrap">
           <div className="flex items-center gap-2 border border-gray-200 rounded-lg px-3 py-2">
             <Search size={13} className="text-gray-400" />
@@ -108,11 +103,11 @@ export default function ShipmentTableView({ shipments }) {
               className="text-xs text-gray-600 outline-none w-40 placeholder-gray-400 bg-transparent"
             />
           </div>
-          <button className="flex items-center gap-1.5 border border-gray-200 rounded-lg px-3 py-2 text-xs text-gray-600 hover:bg-gray-50">
+          <button className="flex items-center gap-1.5 border border-gray-200 rounded-lg px-3 py-2 text-xs text-gray-600 hover:bg-gray-50 transition-colors">
             <Filter size={13} className="text-gray-400" />
             Filter
           </button>
-          <button className="flex items-center gap-1.5 border border-gray-200 rounded-lg px-3 py-2 text-xs text-gray-600 hover:bg-gray-50">
+          <button className="flex items-center gap-1.5 border border-gray-200 rounded-lg px-3 py-2 text-xs text-gray-600 hover:bg-gray-50 transition-colors">
             <Calendar size={13} className="text-gray-400" />
             This Month
           </button>
@@ -163,71 +158,82 @@ export default function ShipmentTableView({ shipments }) {
             </tr>
           </thead>
           <tbody>
-            {paginated.map((shipment) => (
-              <tr
-                key={shipment.id}
-                className={`border-b border-gray-50 hover:bg-gray-50 transition-colors
-                  ${selectedRows.includes(shipment.id) ? 'bg-purple-50' : ''}`}
-              >
-                <td className="table-td">
-                  <input
-                    type="checkbox"
-                    checked={selectedRows.includes(shipment.id)}
-                    onChange={() => toggleRow(shipment.id)}
-                    className="w-4 h-4 rounded border-gray-300"
-                    style={{ accentColor: '#6C63FF' }}
+            {paginated.length === 0 ? (
+              <tr>
+                <td colSpan={10}>
+                  <EmptyState
+                    title="No shipments found"
+                    description="Try adjusting your search or filter to find what you're looking for."
                   />
                 </td>
-                <td className="table-td">
-                  <p className="text-xs font-medium text-[#6C63FF]">{shipment.id}</p>
-                  <p className="text-xs text-gray-400">{shipment.freightType}</p>
-                </td>
-                <td className="table-td">
-                  <div className="flex items-center gap-2">
-                    <div className="w-7 h-7 bg-gray-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <span className="text-xs font-bold text-gray-600">
-                        {shipment.company.charAt(0)}
-                      </span>
-                    </div>
-                    <div>
-                      <p className="text-xs font-medium text-gray-800">{shipment.company}</p>
-                      <p className="text-xs text-gray-400">{shipment.category}</p>
-                    </div>
-                  </div>
-                </td>
-                <td className="table-td hidden md:table-cell">
-                  <span className="text-xs text-gray-600">{shipment.carrier}</span>
-                </td>
-                <td className="table-td hidden lg:table-cell">
-                  <span className="text-xs text-gray-600">{shipment.category}</span>
-                </td>
-                <td className="table-td hidden lg:table-cell">
-                  <span className="text-xs text-gray-600">{shipment.weight}</span>
-                </td>
-                <td className="table-td hidden xl:table-cell">
-                  <p className="text-xs text-gray-700">{shipment.origin} <span className="text-gray-400">(Origin)</span></p>
-                  <p className="text-xs text-[#6C63FF]">{shipment.destination} <span className="text-gray-400">(Destination)</span></p>
-                </td>
-                <td className="table-td hidden xl:table-cell">
-                  <p className="text-xs text-gray-600">{shipment.originDate} <span className="text-gray-400">(ATD)</span></p>
-                  <p className="text-xs text-[#6C63FF]">{shipment.destDate} <span className="text-gray-400">(ETA)</span></p>
-                </td>
-                <td className="table-td hidden lg:table-cell">
-                  <div className="flex items-center gap-2">
-                    <div className="flex-1 bg-gray-200 rounded-full h-1.5 w-16">
-                      <div
-                        className="bg-[#6C63FF] h-1.5 rounded-full"
-                        style={{ width: `${shipment.progress}%` }}
-                      />
-                    </div>
-                    <span className="text-xs text-gray-600">{shipment.progress}%</span>
-                  </div>
-                </td>
-                <td className="table-td">
-                  <StatusBadge status={shipment.status} />
-                </td>
               </tr>
-            ))}
+            ) : (
+              paginated.map((shipment) => (
+                <tr
+                  key={shipment.id}
+                  className={`border-b border-gray-50 hover:bg-gray-50 transition-colors
+                    ${selectedRows.includes(shipment.id) ? 'bg-purple-50' : ''}`}
+                >
+                  <td className="table-td">
+                    <input
+                      type="checkbox"
+                      checked={selectedRows.includes(shipment.id)}
+                      onChange={() => toggleRow(shipment.id)}
+                      className="w-4 h-4 rounded border-gray-300"
+                      style={{ accentColor: '#6C63FF' }}
+                    />
+                  </td>
+                  <td className="table-td">
+                    <p className="text-xs font-medium text-[#6C63FF]">{shipment.id}</p>
+                    <p className="text-xs text-gray-400">{shipment.freightType}</p>
+                  </td>
+                  <td className="table-td">
+                    <div className="flex items-center gap-2">
+                      <div className="w-7 h-7 bg-gray-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <span className="text-xs font-bold text-gray-600">
+                          {shipment.company.charAt(0)}
+                        </span>
+                      </div>
+                      <div>
+                        <p className="text-xs font-medium text-gray-800">{shipment.company}</p>
+                        <p className="text-xs text-gray-400">{shipment.category}</p>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="table-td hidden md:table-cell">
+                    <span className="text-xs text-gray-600">{shipment.carrier}</span>
+                  </td>
+                  <td className="table-td hidden lg:table-cell">
+                    <span className="text-xs text-gray-600">{shipment.category}</span>
+                  </td>
+                  <td className="table-td hidden lg:table-cell">
+                    <span className="text-xs text-gray-600">{shipment.weight}</span>
+                  </td>
+                  <td className="table-td hidden xl:table-cell">
+                    <p className="text-xs text-gray-700">{shipment.origin} <span className="text-gray-400">(Origin)</span></p>
+                    <p className="text-xs text-[#6C63FF]">{shipment.destination} <span className="text-gray-400">(Destination)</span></p>
+                  </td>
+                  <td className="table-td hidden xl:table-cell">
+                    <p className="text-xs text-gray-600">{shipment.originDate} <span className="text-gray-400">(ATD)</span></p>
+                    <p className="text-xs text-[#6C63FF]">{shipment.destDate} <span className="text-gray-400">(ETA)</span></p>
+                  </td>
+                  <td className="table-td hidden lg:table-cell">
+                    <div className="flex items-center gap-2">
+                      <div className="flex-1 bg-gray-200 rounded-full h-1.5 w-16">
+                        <div
+                          className="bg-[#6C63FF] h-1.5 rounded-full"
+                          style={{ width: `${shipment.progress}%` }}
+                        />
+                      </div>
+                      <span className="text-xs text-gray-600">{shipment.progress}%</span>
+                    </div>
+                  </td>
+                  <td className="table-td">
+                    <StatusBadge status={shipment.status} />
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
@@ -279,7 +285,7 @@ export default function ShipmentTableView({ shipments }) {
               <span className="text-gray-400 text-xs px-1">...</span>
               <button
                 onClick={() => setPage(totalPages)}
-                className={`w-7 h-7 flex items-center justify-center rounded-lg text-xs font-medium border border-gray-200 text-gray-600 hover:bg-gray-50`}
+                className="w-7 h-7 flex items-center justify-center rounded-lg text-xs font-medium border border-gray-200 text-gray-600 hover:bg-gray-50"
               >
                 {totalPages}
               </button>

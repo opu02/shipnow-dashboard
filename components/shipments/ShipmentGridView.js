@@ -1,8 +1,9 @@
- 'use client';
+'use client';
 
 import { useState } from 'react';
-import { Search, Filter, ArrowUpDown, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Search, Filter, ChevronLeft, ChevronRight } from 'lucide-react';
 import ShipmentCard from './ShipmentCard';
+import EmptyState from '@/components/ui/EmptyState';
 
 const TABS = ['All', 'Completed', 'Delivery', 'Pending'];
 const PAGE_SIZES = [12, 24, 48];
@@ -15,20 +16,17 @@ export default function ShipmentGridView({ shipments }) {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(12);
 
-  // Filter by tab
   const tabFiltered = shipments.filter((s) => {
     if (activeTab === 'All') return true;
     return s.status === activeTab;
   });
 
-  // Filter by search
   const searched = tabFiltered.filter((s) =>
     s.id.toLowerCase().includes(search.toLowerCase()) ||
     s.company.toLowerCase().includes(search.toLowerCase()) ||
     s.category.toLowerCase().includes(search.toLowerCase())
   );
 
-  // Sort
   const sorted = [...searched].sort((a, b) => {
     const aVal = a[sortField] || '';
     const bVal = b[sortField] || '';
@@ -37,7 +35,6 @@ export default function ShipmentGridView({ shipments }) {
       : bVal.toString().localeCompare(aVal.toString());
   });
 
-  // Pagination
   const total = sorted.length;
   const totalPages = Math.ceil(total / pageSize);
   const paginated = sorted.slice((page - 1) * pageSize, page * pageSize);
@@ -76,7 +73,7 @@ export default function ShipmentGridView({ shipments }) {
                 className="text-xs text-gray-600 outline-none w-32 placeholder-gray-400 bg-transparent"
               />
             </div>
-            <button className="flex items-center gap-1.5 border border-gray-200 rounded-lg px-3 py-2 text-xs text-gray-600 hover:bg-gray-50">
+            <button className="flex items-center gap-1.5 border border-gray-200 rounded-lg px-3 py-2 text-xs text-gray-600 hover:bg-gray-50 transition-colors">
               <Filter size={13} className="text-gray-400" />
               Filter
             </button>
@@ -96,9 +93,18 @@ export default function ShipmentGridView({ shipments }) {
 
       {/* Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mb-4">
-        {paginated.map((shipment) => (
-          <ShipmentCard key={shipment.id} shipment={shipment} />
-        ))}
+        {paginated.length === 0 ? (
+          <div className="col-span-full">
+            <EmptyState
+              title="No shipments found"
+              description="Try adjusting your search or filter to find what you're looking for."
+            />
+          </div>
+        ) : (
+          paginated.map((shipment) => (
+            <ShipmentCard key={shipment.id} shipment={shipment} />
+          ))
+        )}
       </div>
 
       {/* Pagination */}

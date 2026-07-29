@@ -1,8 +1,8 @@
- 
 'use client';
 
 import { useState } from 'react';
 import { Search } from 'lucide-react';
+import EmptyState from '@/components/ui/EmptyState';
 
 const statusClass = {
   'Paid': 'bg-green-100 text-green-700',
@@ -42,7 +42,7 @@ export default function InvoiceList({ invoices, selectedId, onSelect }) {
               <line x1="4" y1="18" x2="20" y2="18"/>
             </svg>
           </button>
-          <button className="flex items-center gap-1 bg-gray-900 text-white text-xs font-medium px-3 py-1.5 rounded-lg hover:bg-gray-800">
+          <button className="flex items-center gap-1 bg-gray-900 text-white text-xs font-medium px-3 py-1.5 rounded-lg hover:bg-gray-800 transition-colors">
             + New Invoice
           </button>
         </div>
@@ -74,46 +74,57 @@ export default function InvoiceList({ invoices, selectedId, onSelect }) {
             </tr>
           </thead>
           <tbody>
-            {filtered.map((invoice) => (
-              <tr
-                key={invoice.id}
-                onClick={() => onSelect(invoice)}
-                className={`border-b border-gray-50 cursor-pointer transition-colors
-                  ${selectedId === invoice.id
-                    ? 'bg-purple-50 border-l-2 border-l-[#6C63FF]'
-                    : 'hover:bg-gray-50'
-                  }`}
-              >
-                <td className="table-td">
-                  <div className="flex items-center gap-2">
-                    <div className="w-6 h-6 rounded-lg bg-purple-100 flex items-center justify-center flex-shrink-0">
-                      <span className="text-xs font-bold text-[#6C63FF]">
-                        {invoice.companyInitial}
-                      </span>
-                    </div>
-                    <span className="text-xs font-medium text-[#6C63FF]">{invoice.id}</span>
-                  </div>
-                </td>
-                <td className="table-td hidden md:table-cell">
-                  <span className="text-xs text-gray-700">{invoice.company}</span>
-                </td>
-                <td className="table-td hidden lg:table-cell">
-                  <span className="text-xs text-gray-500">{invoice.shipmentId}</span>
-                </td>
-                <td className="table-td hidden lg:table-cell">
-                  <p className="text-xs text-gray-600">{invoice.issuedDate} (Issued)</p>
-                  <p className="text-xs text-[#6C63FF]">{invoice.dueDate} (Due)</p>
-                </td>
-                <td className="table-td">
-                  <span className="text-xs font-medium text-gray-800">{invoice.amount}</span>
-                </td>
-                <td className="table-td">
-                  <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${statusClass[invoice.status]}`}>
-                    {invoice.status}
-                  </span>
+            {filtered.length === 0 ? (
+              <tr>
+                <td colSpan={6}>
+                  <EmptyState
+                    title="No invoices found"
+                    description="Try adjusting your search to find what you're looking for."
+                  />
                 </td>
               </tr>
-            ))}
+            ) : (
+              filtered.map((invoice) => (
+                <tr
+                  key={invoice.id}
+                  onClick={() => onSelect(invoice)}
+                  className={`border-b border-gray-50 cursor-pointer transition-colors
+                    ${selectedId === invoice.id
+                      ? 'bg-purple-50 border-l-2 border-l-[#6C63FF]'
+                      : 'hover:bg-gray-50'
+                    }`}
+                >
+                  <td className="table-td">
+                    <div className="flex items-center gap-2">
+                      <div className="w-6 h-6 rounded-lg bg-purple-100 flex items-center justify-center flex-shrink-0">
+                        <span className="text-xs font-bold text-[#6C63FF]">
+                          {invoice.companyInitial}
+                        </span>
+                      </div>
+                      <span className="text-xs font-medium text-[#6C63FF]">{invoice.id}</span>
+                    </div>
+                  </td>
+                  <td className="table-td hidden md:table-cell">
+                    <span className="text-xs text-gray-700">{invoice.company}</span>
+                  </td>
+                  <td className="table-td hidden lg:table-cell">
+                    <span className="text-xs text-gray-500">{invoice.shipmentId}</span>
+                  </td>
+                  <td className="table-td hidden lg:table-cell">
+                    <p className="text-xs text-gray-600">{invoice.issuedDate} (Issued)</p>
+                    <p className="text-xs text-[#6C63FF]">{invoice.dueDate} (Due)</p>
+                  </td>
+                  <td className="table-td">
+                    <span className="text-xs font-medium text-gray-800">{invoice.amount}</span>
+                  </td>
+                  <td className="table-td">
+                    <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${statusClass[invoice.status]}`}>
+                      {invoice.status}
+                    </span>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>
