@@ -4,7 +4,7 @@ A logistics and shipment management dashboard built for the Trends Bird Limited 
 
 ## Live Demo
 
-[Live Link](#) 
+[Live Link](https://shipnow-dashboard-ten.vercel.app)
 
 ## Tech Stack
 
